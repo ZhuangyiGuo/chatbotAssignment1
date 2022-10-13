@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">聊天机器人作业</string>
+    <string name="hello_message">你好,欢迎！</string>
+    <string name="chat_button">一起聊天！</string>
+    <string name="login">登录</string>
+    <string name="login_name">登录名</string>
+    <string name="password">密码</string>
+    <string name="password_placeholder">******</string>
+    <string name="sign_in">登入</string>
+    <string name="logged_in">登录成功</string>
+    <string name="login_failed">登录失败！请检查您的用户名或密码</string>
+    <string name="send">发送</string>
+</resources>
