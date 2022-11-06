@@ -29,7 +29,7 @@ public class ChatWindow extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_window);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         chatList = findViewById(R.id.chatList);
         chatEditText = findViewById(R.id.chatInput);
         sendButton = findViewById(R.id.sendButton);

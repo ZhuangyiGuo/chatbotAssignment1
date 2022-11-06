@@ -11,4 +11,24 @@
     <string name="logged_in">登录成功</string>
     <string name="login_failed">登录失败！请检查您的用户名或密码</string>
     <string name="send">发送</string>
+    <string name="about">关于</string>
+
+    <string name="button_toolbar">测试菜单栏</string>
+    <string name="menu_item_1">烧录光盘</string>
+    <string name="menu_item_2">内存插槽</string>
+    <string name="menu_item_3">处理器</string>
+    <string name="three_dot">关于</string>
+    <string name="option_1_message">已选择选项1</string>
+    <string name="setting_menu_toast">版本 1.1, 作者 Zhuangyi</string>
+    <string name="fabMsg">软件维护请联络邮箱: cp470_f2022_g18@gmail.com</string>
+    <string name="snackbarMsg1">你选择了组件1</string>
+    <string name="return_to_main">是否要回到登录界面</string>
+    <string name="cancel">否</string>
+    <string name="ok">是</string>
+    <string name="close">关闭</string>
+    <string name="tell_us">说说你的想法</string>
+    <string name="you_wrote">你写到:</string>
+    <string name="course_button_text">课程清单</string>
+    <string name="return_to_home">是否要回到主页?</string>
+    <string name="edit_courses">删除一个课程</string>
 </resources>

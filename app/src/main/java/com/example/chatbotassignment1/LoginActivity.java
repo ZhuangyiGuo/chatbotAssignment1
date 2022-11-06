@@ -2,6 +2,7 @@ package com.example.chatbotassignment1;
 
 import static java.lang.Thread.sleep;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         progress = findViewById(R.id.loading);
         progress.setVisibility(View.INVISIBLE);
         Log.i(ACTIVITY_NAME, "In onCreate()");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         login_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

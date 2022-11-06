@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">chatbotAssignment1</string>
     <string name="hello_message">Hello, welcome!</string>
-    <string name="chat_button">Let\'s chat!</string>
+    <string name="chat_button">Ask me question</string>
     <string name="login">Login</string>
     <string name="login_name">abcd0000@wlu.ca</string>
     <string name="password">Password</string>
@@ -10,4 +10,24 @@
     <string name="logged_in">Logged in</string>
     <string name="login_failed">Login failed! Please check your username or password</string>
     <string name="send">SEND</string>
+    <string name="about">about</string>
+
+    <string name="button_toolbar">Test Toolbar</string>
+    <string name="menu_item_1">Burn cd</string>
+    <string name="menu_item_2">Memory slot</string>
+    <string name="menu_item_3">Processor</string>
+    <string name="three_dot">about</string>
+    <string name="option_1_message">Option 1 selected</string>
+    <string name="setting_menu_toast">Version 1.1, by Zhuangyi</string>
+    <string name="fabMsg">For app maintenance email: cp470_f2022_g18@gmail.com</string>
+    <string name="snackbarMsg1">You selected item 1</string>
+    <string name="return_to_main">Return to the Login page?</string>
+    <string name="cancel">No</string>
+    <string name="ok">Yes</string>
+    <string name="close">close</string>
+    <string name="tell_us">Tell us what you think</string>
+    <string name="you_wrote">you wrote:</string>
+    <string name="course_button_text">Courses List</string>
+    <string name="return_to_home">Return to the home page?</string>
+    <string name="edit_courses">remove a course</string>
 </resources>
