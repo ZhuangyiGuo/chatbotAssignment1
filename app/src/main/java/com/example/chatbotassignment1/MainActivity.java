@@ -79,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Toolbar",getString(R.string.option_1_message));
                 Snackbar.make(findViewById(R.id.menu_object_1),snackbarMsg,Snackbar.LENGTH_LONG).show();
                 break;
-            case R.id.menu_object_2:
-                //Start an activity…
-                break;
             case R.id.menu_object_3:
                 //Start an activity…
                 case3();
@@ -126,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText edit = view.findViewById(R.id.dialog_message_box);
-                        String message = edit.getText().toString();
+                        String wrote = getResources().getString(R.string.you_wrote);
+                        String message = wrote + edit.getText().toString();
                         snackbarMsg = message;
                     }
                 })

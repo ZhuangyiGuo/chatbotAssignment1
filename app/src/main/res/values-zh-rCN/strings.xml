@@ -21,7 +21,7 @@
     <string name="option_1_message">已选择选项1</string>
     <string name="setting_menu_toast">版本 1.1, 作者 Zhuangyi</string>
     <string name="fabMsg">软件维护请联络邮箱: cp470_f2022_g18@gmail.com</string>
-    <string name="snackbarMsg1">你选择了组件1</string>
+    <string name="snackbarMsg1">请使用右边按钮留下你的留言</string>
     <string name="return_to_main">是否要回到登录界面</string>
     <string name="cancel">否</string>
     <string name="ok">是</string>
@@ -31,4 +31,8 @@
     <string name="course_button_text">课程清单</string>
     <string name="return_to_home">是否要回到主页?</string>
     <string name="edit_courses">删除一个课程</string>
+    <string name="add_courses">添加一个课程</string>
+    <string name="course_not_added">课程没有添加</string>
+    <string name="course_not_removed">课程没有移除</string>
+    <string name="remove_all">remove all</string>
 </resources>

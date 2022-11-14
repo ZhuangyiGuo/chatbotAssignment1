@@ -4,11 +4,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <ImageView
-        android:src="@drawable/pencil"
+        android:src="@drawable/trash"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:scaleType="center"
         android:background="@color/Blue" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_courses"
+        android:background="@color/Blue"
+        android:layout_gravity="center_horizontal"/>
 
     <EditText
         android:id="@+id/dialog_message_box3"
@@ -19,6 +25,5 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="@string/edit_courses"/>
-
+        android:hint="add item"/>
 </LinearLayout>

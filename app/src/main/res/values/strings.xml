@@ -20,14 +20,18 @@
     <string name="option_1_message">Option 1 selected</string>
     <string name="setting_menu_toast">Version 1.1, by Zhuangyi</string>
     <string name="fabMsg">For app maintenance email: cp470_f2022_g18@gmail.com</string>
-    <string name="snackbarMsg1">You selected item 1</string>
+    <string name="snackbarMsg1">You have not wrote anything yet, use the button right to leave you comment to us</string>
     <string name="return_to_main">Return to the Login page?</string>
     <string name="cancel">No</string>
     <string name="ok">Yes</string>
     <string name="close">close</string>
     <string name="tell_us">Tell us what you think</string>
-    <string name="you_wrote">you wrote:</string>
+    <string name="you_wrote">you wrote: </string>
     <string name="course_button_text">Courses List</string>
     <string name="return_to_home">Return to the home page?</string>
     <string name="edit_courses">remove a course</string>
+    <string name="add_courses">add a course</string>
+    <string name="course_not_added">course not added</string>
+    <string name="course_not_removed">course not removed</string>
+    <string name="remove_all">remove all</string>
 </resources>

@@ -14,4 +14,9 @@
         android:orderInCategory="101"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/three_dot_menu2"
+        android:title="@string/remove_all"
+        android:orderInCategory="101"
+        app:showAsAction="never"/>
+
 </menu>

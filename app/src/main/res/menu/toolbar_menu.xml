@@ -8,12 +8,6 @@
         android:orderInCategory="101"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/menu_object_2"
-        android:title="go_back"
-        android:icon="@drawable/calendar"
-        android:orderInCategory="101"
-        app:showAsAction="always"/>
-
     <item android:id="@+id/menu_object_3"
         android:title="settings"
         android:icon="@drawable/new_message"

@@ -3,6 +3,7 @@ package com.example.chatbotassignment1;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,11 +19,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,36 +38,31 @@ import java.util.ArrayList;
 
 public class RecylerviewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    private CourseDatabaseHelper courseDatabaseHelper;
-    private ArrayList<String> courseList;
-    private SQLiteDatabase db;
-    private Cursor cursor;
+    private  final int number_nubmer_of_rows = 200 ;
+    int row_index = 1 ;
+    public ArrayList <String> courseArrayList;
+    ArrayCourseAdapter arrayCourseAdapter;
+    private String temp_course;
     private final String ACTIVITY_NAME = "RecylerviewActivity";
-
-    @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recylerview);
-        courseList = new ArrayList<>();
+        Toolbar toolbar = findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        courseDatabaseHelper = new CourseDatabaseHelper(this);
-        db = courseDatabaseHelper.getWritableDatabase();
-        String str = "SELECT * FROM courses";
-        cursor = db.rawQuery(str,null);
-        cursor.moveToFirst();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int i = 0;
-        while (!cursor.isAfterLast() ) {
+        temp_course = "";
+        courseArrayList = new ArrayList<>();
+            courseArrayList.add("cp100") ;
+            courseArrayList.add("cp200") ;
+            courseArrayList.add("cp300") ;
 
-        }
-        cursor.close();
-
+        arrayCourseAdapter = new ArrayCourseAdapter(this,courseArrayList);
         recyclerView = findViewById(R.id.recycler_id);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setAdapter(arrayCourseAdapter);
+        recyclerView.setAdapter(arrayCourseAdapter);
     }
-
     public boolean onCreateOptionsMenu(Menu m) {
         getMenuInflater().inflate(R.menu.toolbar2_menu, m);
         return true;
@@ -75,11 +75,14 @@ public class RecylerviewActivity extends AppCompatActivity {
         switch(objectId){
             case R.id.menu_object_4:
                 Log.d("Toolbar",getString(R.string.option_1_message));
-                addCourcses();
+                add_button_function();
                 break;
             case R.id.menu_object_5:
-                Log.d("Toolbar",getString(R.string.option_1_message));
-                editCourses();
+                //Start an activity…
+                remove_button_function();
+                break;
+            case R.id.three_dot_menu2:
+                remove_all();
                 break;
             case android.R.id.home:
                 AlertDialog.Builder builder = new AlertDialog.Builder(RecylerviewActivity.this);
@@ -106,68 +109,77 @@ public class RecylerviewActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.close();
-    }
-
-
-
-    public void editCourses(){
+    public void add_button_function() {
         AlertDialog.Builder customDialog =
                 new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.custom_dialog2, null);
-        customDialog.setView(view).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                EditText edit = view.findViewById(R.id.dialog_message_box2);
-                String message = edit.getText().toString();
-
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        });
+        customDialog.setView(view)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText edit = view.findViewById(R.id.dialog_message_box2);
+                        String message = edit.getText().toString();
+                        add_course(message);
+                    }
+                })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+        Dialog dialog = customDialog.create();
+        dialog.show();
     }
-    public void addCourcses(){
+
+    public void remove_button_function() {
         AlertDialog.Builder customDialog =
                 new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         final View view = inflater.inflate(R.layout.custom_dialog3, null);
-        customDialog.setView(view).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-
-            }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        });
+        customDialog.setView(view)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        EditText edit = view.findViewById(R.id.dialog_message_box3);
+                        String message = edit.getText().toString();
+                        int i = remove_aux(message);
+                        if (i != -1) {
+                            remove_course(i);
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+        Dialog dialog = customDialog.create();
+        dialog.show();
     }
 
-    private class CourseAdapter extends ArrayAdapter<String>{
-        public CourseAdapter(Context ctx) {
-            super(ctx, 0);
+    private void add_course(String aCourse) {
+        courseArrayList.add(0,aCourse);
+        arrayCourseAdapter.notifyItemInserted(0);
+    }
+    private void remove_course(int index) {
+        courseArrayList.remove(index);
+        arrayCourseAdapter.notifyItemRemoved(index);
+    }
+    private void remove_all() {
+        courseArrayList.clear();
+        arrayCourseAdapter.notifyDataSetChanged();
+    }
+    private int remove_aux(String acourse) {
+        int val = 0;
+        while (courseArrayList.size()>val){
+            if(courseArrayList.get(val).equals(acourse)) {
+                return val;
+            }
+            val++;
         }
-        public int getCount() {
-            return courseList.size();
-        }
-        public String getItem(int position){
-            return courseList.get(position);
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = RecylerviewActivity.this.getLayoutInflater();
-            View result = null;
-            result = inflater.inflate(R.layout.course_row,null);
-            TextView message = (TextView) result.findViewById(R.id.messageText);
-            message.setText(getItem(position));// get the string at position
-            return result;
-        }
+        return -1;
     }
 }
