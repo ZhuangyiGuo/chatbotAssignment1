@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "In onCreate()");
         Button chatButton = findViewById(R.id.chatButton);
         Button courseButton = findViewById(R.id.courseButton);
+        Button weatherButton = findViewById(R.id.weatherButton);
         snackbarMsg = getResources().getString(R.string.snackbarMsg1);
         Toolbar toolbar = findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -60,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("TAG", "close pressed");
                     // snackbar.dismiss();
                 }).show();
+            }
+        });
+        weatherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(ACTIVITY_NAME, "User clicked weather button");
+                startActivity(new Intent(MainActivity.this,WeatherForecast.class));
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

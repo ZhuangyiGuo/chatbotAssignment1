@@ -34,5 +34,14 @@
     <string name="add_courses">添加一个课程</string>
     <string name="course_not_added">课程没有添加</string>
     <string name="course_not_removed">课程没有移除</string>
-    <string name="remove_all">remove all</string>
+    <string name="remove_all">移除所有</string>
+
+    <string-array name="cities">
+        <item>Toronto</item>
+        <item>Brantford</item>
+        <item>Waterloo</item>
+    </string-array>
+
+    <string name="weather_button">校园天气</string>
+
 </resources>

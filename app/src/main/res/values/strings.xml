@@ -34,4 +34,12 @@
     <string name="course_not_added">course not added</string>
     <string name="course_not_removed">course not removed</string>
     <string name="remove_all">remove all</string>
+
+    <string-array name="cities">
+        <item>Toronto</item>
+        <item>Brantford</item>
+        <item>Waterloo</item>
+    </string-array>
+
+    <string name="weather_button">campus weather</string>
 </resources>

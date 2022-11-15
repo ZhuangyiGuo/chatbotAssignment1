@@ -36,7 +36,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class RecylerviewActivity extends AppCompatActivity {
+public class RecylerviewActivity extends AppCompatActivity implements ArrayCourseAdapter.ItemClickListener {
     RecyclerView recyclerView;
     private  final int number_nubmer_of_rows = 200 ;
     int row_index = 1 ;
@@ -181,5 +181,9 @@ public class RecylerviewActivity extends AppCompatActivity {
             val++;
         }
         return -1;
+    }
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + arrayCourseAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 }

@@ -42,6 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "In onCreate()");
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        username.setText("asd@s.s");
+        password.setText("sda");
+
         login_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
