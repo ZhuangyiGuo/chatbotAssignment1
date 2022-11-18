@@ -47,7 +47,7 @@ public class WeatherForecast extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_forecast);
-
+        getSupportActionBar().setTitle("Campus Weather");
         progressBar = findViewById(R.id.weather_progressbar);
 
         progressBar.setVisibility(View.VISIBLE);

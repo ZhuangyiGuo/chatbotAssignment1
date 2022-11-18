@@ -36,10 +36,14 @@
     <string name="remove_all">remove all</string>
 
     <string-array name="cities">
-        <item>Toronto</item>
-        <item>Brantford</item>
         <item>Waterloo</item>
+        <item>Brantford</item>
+        <item>Toronto</item>
     </string-array>
 
     <string name="weather_button">campus weather</string>
+
+    <string name="date_time">Set the date and time</string>
+    <string name="button_date">Set Date</string>
+    <string name="button_time">Set Time</string>
 </resources>

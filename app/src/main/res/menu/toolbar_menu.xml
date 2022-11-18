@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/menu_object_2"
+        android:title="add_item"
+        android:icon="@drawable/calendar"
+        android:orderInCategory="101"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/menu_object_1"
         android:title="add_item"
         android:icon="@drawable/envelope"

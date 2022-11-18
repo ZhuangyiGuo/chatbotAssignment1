@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,17 +18,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int LAUNCH_ACTIVITY = 10;
     protected static final String ACTIVITY_NAME = "MainActivity";
     private String snackbarMsg;
+    Calendar currentDateAndTime = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
         int objectId = mi.getItemId();
 
         switch(objectId){
+            case R.id.menu_object_2:
+                DatePickerDialog.OnDateSetListener dListener =
+                        new DatePickerDialog.OnDateSetListener() {
+                            public void onDateSet(DatePicker view, int yr, int mth, int dy) {
+                                currentDateAndTime.set(Calendar.YEAR, yr);
+                                currentDateAndTime.set(Calendar.MONTH, mth);
+                                currentDateAndTime.set(Calendar.DAY_OF_MONTH, dy);
+                                //setTimeAndDateText();
+                            }
+                        };
+                new DatePickerDialog(this, dListener,
+                        currentDateAndTime.get(Calendar.YEAR),
+                        currentDateAndTime.get(Calendar.MONTH),
+                        currentDateAndTime.get(Calendar.DAY_OF_MONTH)). show();
+
+                break;
             case R.id.menu_object_1:
                 Log.d("Toolbar",getString(R.string.option_1_message));
                 Snackbar.make(findViewById(R.id.menu_object_1),snackbarMsg,Snackbar.LENGTH_LONG).show();
