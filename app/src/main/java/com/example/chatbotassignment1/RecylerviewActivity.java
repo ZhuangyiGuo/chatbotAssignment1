@@ -44,6 +44,7 @@ public class RecylerviewActivity extends AppCompatActivity implements ArrayCours
     ArrayCourseAdapter arrayCourseAdapter;
     private String temp_course;
     private final String ACTIVITY_NAME = "RecylerviewActivity";
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
