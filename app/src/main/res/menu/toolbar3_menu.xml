@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/three_dot_menu3"
-        android:title="@string/remove_all"
+        android:title="@string/clear"
         android:orderInCategory="101"
         app:showAsAction="never"/>
 

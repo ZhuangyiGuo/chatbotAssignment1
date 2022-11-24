@@ -2,11 +2,14 @@ package com.example.chatbotassignment1;
 
 import static android.content.ContentValues.TAG;
 
+import static java.sql.Types.ROWID;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,14 +19,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,25 +52,47 @@ public class RecylerviewActivity extends AppCompatActivity implements ArrayCours
     ArrayCourseAdapter arrayCourseAdapter;
     private String temp_course;
     private final String ACTIVITY_NAME = "RecylerviewActivity";
-    @SuppressLint("SuspiciousIndentation")
+
+    private CourseDatabaseHelper courseDatabaseHelper;
+    private SQLiteDatabase sqLiteDatabase;
+    private Cursor cursor;
+
+    private boolean frameLoaded;
+    private CourseFragment courseFragment;
+    private final int LAUNCH_ACTIVITY = 10;
+
+    @SuppressLint({"SuspiciousIndentation", "Range", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recylerview);
-        Toolbar toolbar = findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (findViewById(R.id.frame_layout) == null) {
+            frameLoaded = false;
+        } else {
+            frameLoaded = true;
+        }
+
         temp_course = "";
         courseArrayList = new ArrayList<>();
-            courseArrayList.add("cp100") ;
-            courseArrayList.add("cp200") ;
-            courseArrayList.add("cp300") ;
-
         arrayCourseAdapter = new ArrayCourseAdapter(this,courseArrayList);
+        arrayCourseAdapter.setClickListener(this::onItemClick);
         recyclerView = findViewById(R.id.recycler_id);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(arrayCourseAdapter);
+
+        courseDatabaseHelper = new CourseDatabaseHelper(this);
+        sqLiteDatabase = courseDatabaseHelper.getWritableDatabase();
+        String query = "SELECT * FROM courses";
+        cursor = sqLiteDatabase.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            courseArrayList.add(cursor.getString(cursor.getColumnIndex(courseDatabaseHelper.KEY_MESSAGE)));
+            cursor.moveToNext();
+        }
+        cursor.close();
     }
     public boolean onCreateOptionsMenu(Menu m) {
         getMenuInflater().inflate(R.menu.toolbar2_menu, m);
@@ -149,6 +179,7 @@ public class RecylerviewActivity extends AppCompatActivity implements ArrayCours
                         int i = remove_aux(message);
                         if (i != -1) {
                             remove_course(i);
+                            updateDatabase();
                         }
                     }
                 })
@@ -162,8 +193,9 @@ public class RecylerviewActivity extends AppCompatActivity implements ArrayCours
     }
 
     private void add_course(String aCourse) {
-        courseArrayList.add(0,aCourse);
-        arrayCourseAdapter.notifyItemInserted(0);
+        courseArrayList.add(aCourse);
+        arrayCourseAdapter.notifyItemInserted(courseArrayList.size());
+        sqLiteDatabase.execSQL("INSERT INTO " + CourseDatabaseHelper.TABLE_NAME + " (" + CourseDatabaseHelper.KEY_MESSAGE + ") VALUES ('" + aCourse + "')");
     }
     private void remove_course(int index) {
         courseArrayList.remove(index);
@@ -172,6 +204,7 @@ public class RecylerviewActivity extends AppCompatActivity implements ArrayCours
     private void remove_all() {
         courseArrayList.clear();
         arrayCourseAdapter.notifyDataSetChanged();
+        sqLiteDatabase.execSQL("DELETE FROM " + CourseDatabaseHelper.TABLE_NAME);
     }
     private int remove_aux(String acourse) {
         int val = 0;
@@ -183,8 +216,44 @@ public class RecylerviewActivity extends AppCompatActivity implements ArrayCours
         }
         return -1;
     }
+    private void updateDatabase() {
+        sqLiteDatabase.execSQL("DELETE FROM " + CourseDatabaseHelper.TABLE_NAME);
+        //if (courseArrayList.size()>0) {
+            for (int i = 0; i < courseArrayList.size(); i++) {
+
+                sqLiteDatabase.execSQL("INSERT INTO " + CourseDatabaseHelper.TABLE_NAME + " (" + CourseDatabaseHelper.KEY_MESSAGE + ") VALUES ('" + arrayCourseAdapter.getItem(i) + "')");
+            }
+        //}
+    }
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + arrayCourseAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "You clicked " + arrayCourseAdapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        //finish();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(CourseDatabaseHelper.KEY_MESSAGE,arrayCourseAdapter.getItem(position));
+        courseFragment = new CourseFragment();
+
+        if (frameLoaded) {
+            Log.i("Tablet Mode","is on");
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            courseFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.frame_layout, courseFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            Log.i("Tablet Mode","is off");
+            Intent intent = new Intent(RecylerviewActivity.this,CourseDetails.class);
+            intent.putExtra("bundle",bundle);
+            startActivity(intent);
+        }
+
     }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        sqLiteDatabase.close();
+    }
+
+
 }
