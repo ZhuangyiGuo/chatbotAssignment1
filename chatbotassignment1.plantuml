@@ -1,0 +1,230 @@
+@startuml
+
+title __CHATBOTASSIGNMENT1's Class Diagram__\n
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.ArrayCourseAdapter {
+        - mData : List<String>
+        - mInflater : LayoutInflater
+        + getItemCount()
+        + onBindViewHolder()
+        + onCreateViewHolder()
+        ~ ArrayCourseAdapter()
+        ~ getItem()
+        ~ setClickListener()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    interface chatbotassignment1.ArrayCourseAdapter.ItemClickListener {
+        {abstract} + onItemClick()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.ArrayCourseAdapter.ViewHolder {
+        ~ myTextView : TextView
+        + onClick()
+        ~ ViewHolder()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.ChatDatabaseHelper {
+        {static} + KEY_ID : String
+        {static} + KEY_MESSAGE : String
+        {static} + TABLE_NAME : String
+        {static} - DATABASE_NAME : String
+        {static} - VERSION_NUM : int
+        + ChatDatabaseHelper()
+        + onCreate()
+        + onUpgrade()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.ChatWindow {
+        - ACTIVITY_NAME : String
+        - chatEditText : EditText
+        - chatList : ListView
+        - chatMessages : ArrayList<String>
+        - cursor : Cursor
+        - db : SQLiteDatabase
+        - sendButton : Button
+        + clearChat()
+        + dispatchTouchEvent()
+        + onCreateOptionsMenu()
+        + onOptionsItemSelected()
+        # onCreate()
+        # onDestroy()
+        - HideSoftInput()
+        - isHideInput()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.ChatWindow.ChatAdapter {
+        + ChatAdapter()
+        + getCount()
+        + getItem()
+        + getView()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.CourseDatabaseHelper {
+        {static} + KEY_ID : String
+        {static} + KEY_MESSAGE : String
+        {static} + TABLE_NAME : String
+        {static} - DATABASE_NAME : String
+        {static} - VERSION_NUM : int
+        + CourseDatabaseHelper()
+        + onCreate()
+        + onUpgrade()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.CourseDetails {
+        # onCreate()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.CourseFragment {
+        {static} ~ resultCode : int
+        - classroom : TextView
+        - credit : TextView
+        - description : TextView
+        - id : TextView
+        - instructor : TextView
+        - time : TextView
+        + onCreateView()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.LoginActivity {
+        + login_button : Button
+        + password : TextView
+        + progress : ProgressBar
+        + username : TextView
+        {static} # ACTIVITY_NAME : String
+        + dispatchTouchEvent()
+        {static} + isValidEmail()
+        + onPause()
+        + onResume()
+        # onCreate()
+        - HideSoftInput()
+        - isHideInput()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.MainActivity {
+        {static} # ACTIVITY_NAME : String
+        {static} ~ LAUNCH_ACTIVITY : int
+        ~ currentDateAndTime : Calendar
+        - snackbarMsg : String
+        + case3()
+        + onCreateOptionsMenu()
+        + onOptionsItemSelected()
+        # onCreate()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.RecylerviewActivity {
+        + courseArrayList : ArrayList<String>
+        ~ recyclerView : RecyclerView
+        ~ row_index : int
+        - ACTIVITY_NAME : String
+        - LAUNCH_ACTIVITY : int
+        - cursor : Cursor
+        - frameLoaded : boolean
+        - number_nubmer_of_rows : int
+        - sqLiteDatabase : SQLiteDatabase
+        - temp_course : String
+        + add_button_function()
+        + onCreateOptionsMenu()
+        + onItemClick()
+        + onOptionsItemSelected()
+        + remove_button_function()
+        # onCreate()
+        # onDestroy()
+        - add_course()
+        - remove_all()
+        - remove_aux()
+        - remove_course()
+        - updateDatabase()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.WeatherForecast {
+        ~ cityList : List<String>
+        ~ cityName : TextView
+        ~ citySpinner : Spinner
+        ~ current_temp : TextView
+        ~ imageView : ImageView
+        ~ max_temp : TextView
+        ~ min_temp : TextView
+        ~ progressBar : ProgressBar
+        - ACTIVITY_NAME : String
+        # onCreate()
+    }
+  }
+  
+
+  namespace chatbotassignment1 {
+    class chatbotassignment1.WeatherForecast.ForecastQuery {
+        # city : String
+        - currentTemp : String
+        - maxTemp : String
+        - minTemp : String
+        - picture : Bitmap
+        - windSpeed : String
+        + ForecastQuery()
+        + fileExistance()
+        + getImage()
+        # doInBackground()
+        # onPostExecute()
+        # onProgressUpdate()
+    }
+  }
+  
+
+  chatbotassignment1.ArrayCourseAdapter o-- chatbotassignment1.ArrayCourseAdapter.ItemClickListener : mClickListener
+  chatbotassignment1.ArrayCourseAdapter +-down- chatbotassignment1.ArrayCourseAdapter.ItemClickListener
+  chatbotassignment1.ArrayCourseAdapter +-down- chatbotassignment1.ArrayCourseAdapter.ViewHolder
+  chatbotassignment1.ArrayCourseAdapter.ViewHolder .up.|> View.OnClickListener
+  chatbotassignment1.ChatWindow o-- chatbotassignment1.ChatWindow.ChatAdapter : messageAdapter
+  chatbotassignment1.ChatWindow o-- chatbotassignment1.ChatDatabaseHelper : chatDatabaseHelper
+  chatbotassignment1.ChatWindow +-down- chatbotassignment1.ChatWindow.ChatAdapter
+  chatbotassignment1.RecylerviewActivity .up.|> chatbotassignment1.ArrayCourseAdapter.ItemClickListener
+  chatbotassignment1.RecylerviewActivity o-- chatbotassignment1.ArrayCourseAdapter : arrayCourseAdapter
+  chatbotassignment1.RecylerviewActivity o-- chatbotassignment1.CourseDatabaseHelper : courseDatabaseHelper
+  chatbotassignment1.RecylerviewActivity o-- chatbotassignment1.CourseFragment : courseFragment
+  chatbotassignment1.WeatherForecast +-down- chatbotassignment1.WeatherForecast.ForecastQuery
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
